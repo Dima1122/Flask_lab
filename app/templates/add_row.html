@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление нового наблюдения</title>
+</head>
+<body>
+    <h1>Заполните поля формы необходимыми значениями</h1>
+    <form action="" method="post" name="add_row">
+    {{form.hidden_tag()}}
+    <p>
+        EmploymentField:<br>
+        {{form.EmploymentField(size=80)}}<br>
+    </p>
+    <p>
+        EmploymentStatus:<br>
+        {{form.EmploymentStatus(size=80)}}<br>
+    </p>    <p>
+        Gender:<br>
+        {{form.Gender(size=80)}}<br>
+    </p>    <p>
+        LanguageAtHome:<br>
+        {{form.LanguageAtHome(size=80)}}<br>
+    </p>    <p>
+        JobWherePref:<br>
+        {{form.JobWherePref(size=80)}}<br>
+    </p>    <p>
+        SchoolDegree:<br>
+        {{form.SchoolDegree(size=80)}}<br>
+    </p>    <p>
+        Income:<br>
+        {{form.Income(size=80)}}<br>
+    </p>
+    <p><input type="submit" value="Добавить наблюдение"></p>
+</form>
+</body>
+</html>

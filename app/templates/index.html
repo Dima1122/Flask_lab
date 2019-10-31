@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лучший веб-сервис</title>
+</head>
+<body>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message}} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <p><h1>Добро пожаловать на лучший веб-сервис! Следуйте за мной</h1></p>
+    <p></p>
+    <p><h3>Выберите, какой невероятной функцией нашего приложения вы хотите воспользоваться:</h3></p>
+    <p><button onclick="window.location.href = './add_row';">
+        Добавить новое наблюдение в датасет с результатами соц. опроса
+    </button></p>
+    <p><h3>Advanced analytics team представляет</h3></p>
+    <button onclick="window.location.href = './analysis?field1=Gender&field2=SchoolDegree';">
+        Анализировать связь между Gender, SchoolDegree
+    </button>
+    <button onclick="window.location.href = './analysis?field1=Gender&field2=JobWherePref';">
+        Анализировать связь между Gender, JobWherePref
+    </button>
+    <button onclick="window.location.href = './analysis?field1=JobWherePref&field2=LanguageAtHome';">
+        Анализировать связь между JobWherePref, LanguageAtHome
+    </button>
+    <p></p>
+    <button onclick="window.location.href = './analysis?field1=EmploymentField&field2=LanguageAtHome';">
+        Анализировать связь между EmploymentField, LanguageAtHome
+    </button>
+    <button onclick="window.location.href = './analysis?field1=EmploymentStatus&field2=LanguageAtHome;">
+        Анализировать связь между EmploymentStatus, LanguageAtHome
+    </button>
+</body>
+</html>
