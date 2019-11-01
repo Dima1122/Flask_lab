@@ -28,7 +28,8 @@ def analysis():
     field2 = escape(request.args.get('field2'))
     contingency_table = analyzer.get_contingency_table(field1, field2)
     expected_table = analyzer.get_expected_table(field1, field2)
-    return render_template('analysis.html', contingency_table, expected_table, field1=field1, field2=field2)
+    statistic_name, p_value = analyzer.get_statistic(field1, field2) 
+    return render_template('analysis.html', contingency_table = contingency_table, expected_table = expected_table, statistic_name = statistic_name, p_value = p_value)
 
 @app.route('/add_row', methods=['GET'])
 def add_row():
