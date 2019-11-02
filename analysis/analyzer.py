@@ -13,7 +13,7 @@ def get_data():
         conn = sqlite3.connect('C:/Users/User/Documents/Спец_БД/Lab_4/Flask_lab/app.sqlite')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        sqlite_select_query = """SELECT * from observation"""
+        sqlite_select_query = """SELECT * from observation where id<=2139"""
         cursor.execute(sqlite_select_query)
         col_name_list = [tuple[0] for tuple in cursor.description]
         records = cursor.fetchall()
@@ -59,16 +59,16 @@ def choose_method(crosstab):
         :param crosstab
         :return: statistic_name
     '''
-    if (crosstab.values.shape[0]<= 2 and crosstab.values.shape[1]<=2):
-        if np.all(crosstab.values > 10):
+    if (crosstab.shape[0]<= 2 and crosstab.shape[1]<=2):
+        if np.all(crosstab > 10):
             return 'chi-square-pearson'
-        elif np.all(crosstab.values > 4):
+        elif np.all(crosstab > 4):
             return 'chi-cquare-yetes-correction'
         else:
             return 'fischer-exact'
-    elif (crosstab.values[np.where(crosstab.values < 5)].shape[0] / (crosstab.values.shape[0] * crosstab.values.shape[1]) < 0.2):
+    elif (crosstab[np.where(crosstab < 5)].shape[0] / (crosstab.shape[0] * crosstab.shape[1]) < 0.2):
         return 'chi-square-pearson'
-    elif crosstab.values.shape[0] * crosstab.values.shape[1] < 20:
+    elif crosstab.sum() < 500:
         return 'freeman-colton'
     return 'freeman-colton-with-monte-carlo'
 
@@ -80,7 +80,8 @@ def get_statistic(field1, field2):
     '''
     data = get_data()
     crosstab = pd.crosstab(data[field1],data[field2],margins = True)
-    method = choose_method(crosstab)
+    expected = scipy.stats.contingency.expected_freq(crosstab)
+    method = choose_method(expected)
     if method == 'chi-square-pearson':
         chi2, p_value, dof, expected = scipy.stats.chi2_contingency(crosstab, correction = False)
         return 'chi-square-pearson', p_value
@@ -98,6 +99,6 @@ def get_statistic(field1, field2):
     if method == 'freeman-colton-with-monte-carlo':
         stats = importr('stats')
         m = np.array(crosstab.values)
-        res = stats.fisher_test(m, simulate_p_value = True)
+        res = stats.fisher_test(m, simulate_p_value = True, B = m.sum()*10)
         return 'freeman-colton-with-monte-carlo', float(list(res[0])[0])
     return 'oops, something went wrong'
