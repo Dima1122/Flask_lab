@@ -13,11 +13,15 @@ class ObservationForm(Form):
         except ValueError:
             raise ValidationError('Field must be number')
 
-    ID = IntegerField('ID', validators = [DataRequired()])
+    ID = IntegerField('ID', validators = [DataRequired()]) #нужно ли это здесь?
+    CityPopulation = SelectField('EmploymentStatus', choices=[("less than 100,000",'less than 100,000'),("between 100,000 and 1 million",'between 100,000 and 1 million'),('more than 1 million', 'more than 1 million')])
     EmploymentField = StringField('EmploymentField', validators = [DataRequired()])
     EmploymentStatus = SelectField('EmploymentStatus', choices=[("Employed for wages",'Employed for wages'),("Self-employed business owner",'Self-employed business owner'),('Self-employed freelancer', 'Self-employed freelancer'), ('Unemployed', 'Unemployed')])
+    HasDebt = SelectField('HasDebt', choices=[("yes",'yes'),("no",'no')])
     Gender = SelectField("Gender: ", choices=[("male",'male'),("female",'female'),('bisexual', 'bisexual')])
     LanguageAtHome = StringField('LanguageAtHome', validators = [DataRequired()])
+    JobPref = StringField('JobPref', validators = [DataRequired()])
     JobWherePref = StringField('JobWherePref', validators = [DataRequired()])
+    MaritalStatus = SelectField('MaritalStatus', choices=[("single, never married",'single, never married'),("divorced",'divorced'),('separated', 'separated'),('married or domestic partnership','married or domestic partnership')])
     SchoolDegree = StringField('SchoolDegree', validators = [DataRequired()])
     Income = FloatField('Income', validators = [DataRequired()])

@@ -8,12 +8,13 @@ from rpy2.robjects.packages import importr
 rpy2.robjects.numpy2ri.activate()
 
 
-def get_data():
+def get_data(): #THIS IS FOR LAB 3
     try:
-        conn = sqlite3.connect('C:/Users/User/Documents/Спец_БД/Lab_4/Flask_lab/app.sqlite')
+        conn = sqlite3.connect(app.config['DATABASE'])
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        sqlite_select_query = """SELECT * from observation where id<=2139"""
+        sqlite_select_query = """SELECT EmploymentField,EmploymentStatus,Gender,LanguageAtHome,
+        JobWherePref,SchoolDegree,Income from observation where id<=753"""
         cursor.execute(sqlite_select_query)
         col_name_list = [tuple[0] for tuple in cursor.description]
         records = cursor.fetchall()
@@ -22,8 +23,7 @@ def get_data():
         print("Failed to read data from sqlite table", error)
     finally:
         conn.close()
-        
-    data = pd.DataFrame(records, columns = col_name_list)
+    data = pd.DataFrame(records, columns=col_name_list)
     return data
 
 def get_contingency_table(field1: str, field2: str):
@@ -102,3 +102,6 @@ def get_statistic(field1, field2):
         res = stats.fisher_test(m, simulate_p_value = True, B = m.sum()*10)
         return 'freeman-colton-with-monte-carlo', float(list(res[0])[0])
     return 'oops, something went wrong'
+
+#def get_income_data(): #THIS IS FOR LAB 4
+#    return np.NaN

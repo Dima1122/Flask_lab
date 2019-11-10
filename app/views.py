@@ -45,13 +45,19 @@ def insert_row():
     conn = sqlite3.connect(app.config['DATABASE'])
     g.db = conn
     id = g.db.execute('select max(id) from observation').fetchall()[0][0] + 1
-    g.db.execute('insert into observation values (?, ?, ?, ?, ?, ?, ?, ?)',
-                 [id, request.form['EmploymentField'], request.form['EmploymentStatus'], request.form['Gender'], request.form['LanguageAtHome'],
-                 request.form['JobWherePref'], request.form['SchoolDegree'], request.form['Income']])
+    g.db.execute('insert into observation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                 [id, request.form['CityPopulation'], request.form['EmploymentField'], request.form['EmploymentStatus'], request.form['Gender'], request.form['HasDebt'],
+                  request.form['LanguageAtHome'], request.form['JobPref'], request.form['JobWherePref'], request.form['MaritalStatus'],
+                  request.form['SchoolDegree'], request.form['Income']])
     g.db.commit()
     g.db.close()
-    flash('Добавлена запись:\nEmploymentField = ' + str(form.EmploymentField.data) + '\nEmploymentStatus = ' + str(form.EmploymentStatus.data) + '\nGender = ' + str(form.Gender.data) +
-          '\nLanguageAtHome = ' + str(form.LanguageAtHome.data) + '\nJobWherePref = ' + str(form.JobWherePref.data) + '\nSchoolDegree = ' + str(form.SchoolDegree.data) +
+    flash('Добавлена запись:\nCityPopulation = ' + str(form.CityPopulation.data) + '\nEmploymentField = ' + str(form.EmploymentField.data) + '\nEmploymentStatus = ' + str(form.EmploymentStatus.data) + '\nGender = ' + str(form.Gender.data) +
+          '\nHasDebt = ' + str(form.HasDebt.data) + '\nLanguageAtHome = ' + str(form.LanguageAtHome.data) + '\nJobPref = ' + str(form.JobPref.data) +
+          '\nJobWherePref = ' + str(form.JobWherePref.data) + '\nMaritalStatus = ' + str(form.MaritalStatus.data) + '\nSchoolDegree = ' + str(form.SchoolDegree.data) +
           '\nIncome = ' + str(form.Income.data))
     return redirect('/index')
 
+@app.route('/analysis_income', methods=['GET'])
+def analysis_income():
+    #code of analysis
+    return render_template('income.html') #+ analysis results

@@ -57,7 +57,6 @@
 	</style>
 </head>
 <body>
-    <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -89,6 +88,10 @@
     </button>
     <button class='btn' onclick="window.location.href = './analysis?field1=EmploymentStatus&field2=LanguageAtHome';">
         Анализировать связь между EmploymentStatus, LanguageAtHome
+    </button>
+    <p><h3>Специальный релиз для 4 лабораторной работы</h3></p>
+    <button class='btn' onclick="window.location.href = './analysis_income';">
+        Анализировать зависимость дохода от других показателей
     </button>
 </body>
 </html>
