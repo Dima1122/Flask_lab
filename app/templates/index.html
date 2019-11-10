@@ -3,6 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Лучший веб-сервис</title>
+	<link type="text/css" rel="stylesheet" href="./index.css"/>
+	<style>
+	body {
+		background-color: #9ACD32;
+	}
+	
+	.btn {
+		position: relative;
+		overflow: hidden;
+		z-index: 1;
+		font-family: 'Montserrat Alternates', sans-serif;
+		font-weight: 600;
+		line-height: 25px;
+		color: white;
+		font-size: 12px;
+		text-transform: uppercase;
+		background: #389ed5;
+		border-width: 0;
+		box-shadow: 5px 5px 0 #532831;
+		outline: none;
+		cursor: pointer;
+		transition: 1.5s;
+	}
+	.btn:before, btn:after {
+		content: "";
+		position: absolute;
+		height: 200px;
+		left: -50%;
+		margin-top: -100px;
+		top: 50%;
+		width: 200px;
+		border-radius: 50%;
+		opacity: 0.3;
+		z-index: -1;
+		transform: scale(0);
+	}
+	.btn:before {
+		background: #ffeede;
+		transition: .8s ease-out;
+	}
+	.btn:after {
+		transition: .4s ease-in .3s;
+	}
+	.btn:hover {
+		color: #532831;
+	}
+	.btn:hover:before,
+	.btn:hover:after{
+		opacity: 1;
+		transform: scale(7);
+	}
+	</style>
 </head>
 <body>
     <hr>
@@ -18,24 +70,24 @@
     <p><h1>Добро пожаловать на лучший веб-сервис! Следуйте за мной</h1></p>
     <p></p>
     <p><h3>Выберите, какой невероятной функцией нашего приложения вы хотите воспользоваться:</h3></p>
-    <p><button onclick="window.location.href = './add_row';">
+	<p><button class='btn' onclick="window.location.href = './add_row';">
         Добавить новое наблюдение в датасет с результатами соц. опроса
     </button></p>
     <p><h3>Advanced analytics team представляет</h3></p>
-    <button onclick="window.location.href = './analysis?field1=Gender&field2=SchoolDegree';">
+    <button class='btn' onclick="window.location.href = './analysis?field1=Gender&field2=SchoolDegree';">
         Анализировать связь между Gender, SchoolDegree
     </button>
-    <button onclick="window.location.href = './analysis?field1=Gender&field2=JobWherePref';">
+    <button class='btn' onclick="window.location.href = './analysis?field1=Gender&field2=JobWherePref';">
         Анализировать связь между Gender, JobWherePref
     </button>
-    <button onclick="window.location.href = './analysis?field1=JobWherePref&field2=LanguageAtHome';">
+    <button class='btn' onclick="window.location.href = './analysis?field1=JobWherePref&field2=LanguageAtHome';">
         Анализировать связь между JobWherePref, LanguageAtHome
     </button>
     <p></p>
-    <button onclick="window.location.href = './analysis?field1=EmploymentField&field2=LanguageAtHome';">
+    <button class='btn' onclick="window.location.href = './analysis?field1=EmploymentField&field2=LanguageAtHome';">
         Анализировать связь между EmploymentField, LanguageAtHome
     </button>
-    <button onclick="window.location.href = './analysis?field1=EmploymentStatus&field2=LanguageAtHome;">
+    <button class='btn' onclick="window.location.href = './analysis?field1=EmploymentStatus&field2=LanguageAtHome';">
         Анализировать связь между EmploymentStatus, LanguageAtHome
     </button>
 </body>

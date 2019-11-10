@@ -3,35 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление нового наблюдения</title>
+	<style>		
+	body{
+		background: #50a3a2;
+		background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+		background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+		background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+		background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+	}
+	
+	
+	.form_format {
+		width: 544px;
+		border-width: 1px;
+		height: 21px;
+		border: 2;
+		padding: 1;
+	}
+	</style>
 </head>
 <body>
-    <h1>Заполните поля формы необходимыми значениями</h1>
-    <form action="" method="post" name="add_row">
-    {{form.hidden_tag()}}
-    <p>
-        EmploymentField:<br>
-        {{form.EmploymentField(size=80)}}<br>
-    </p>
-    <p>
-        EmploymentStatus:<br>
-        {{form.EmploymentStatus(size=80)}}<br>
-    </p>    <p>
-        Gender:<br>
-        {{form.Gender(size=80)}}<br>
-    </p>    <p>
-        LanguageAtHome:<br>
-        {{form.LanguageAtHome(size=80)}}<br>
-    </p>    <p>
-        JobWherePref:<br>
-        {{form.JobWherePref(size=80)}}<br>
-    </p>    <p>
-        SchoolDegree:<br>
-        {{form.SchoolDegree(size=80)}}<br>
-    </p>    <p>
-        Income:<br>
-        {{form.Income(size=80)}}<br>
-    </p>
-    <p><input type="submit" value="Добавить наблюдение"></p>
-</form>
+	<h1>Заполните поля формы необходимыми значениями</h1>
+	<form action="" method="post" name="add_row">
+	{{form.hidden_tag()}}
+	<p>
+		EmploymentField:<br>
+		{{form.EmploymentField(size=80)}}<br>
+	</p>
+	<p>
+		EmploymentStatus:<br>
+		{{form.EmploymentStatus(class_ = 'form_format')}}<br>
+	</p>
+	<p>
+		Gender:<br>
+		{{form.Gender(class_ = 'form_format')}}
+			<br>
+	</p>    
+	<p>
+		LanguageAtHome:<br>
+		{{form.LanguageAtHome(size=80)}}<br>
+	</p>    
+	<p>
+		JobWherePref:<br>
+		{{form.JobWherePref(size=80)}}<br>
+	</p>    
+	<p>
+		SchoolDegree:<br>
+		{{form.SchoolDegree(size=80, autocomplete="off")}}<br>
+	</p>    
+	<p>
+		Income:<br>
+		{{form.Income(size=80, type='number', class_ = 'form_format', placeholder='Enter the number...')}}<br>
+	</p>
+	<p><input type="submit" value="Добавить наблюдение"></p>
+	</form>
 </body>
 </html>
