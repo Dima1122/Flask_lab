@@ -103,5 +103,5 @@ def get_statistic(field1, field2):
         return 'freeman-colton-with-monte-carlo', float(list(res[0])[0])
     return 'oops, something went wrong'
 
-#def get_income_data(): #THIS IS FOR LAB 4
-#    return np.NaN
+
+

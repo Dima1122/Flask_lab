@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect, g
 from flask import request, escape
-from analysis import analyzer
+from analysis import analyzer, analyzer_2
 from app.forms import ObservationForm
 import sqlite3
 
@@ -57,7 +57,27 @@ def insert_row():
           '\nIncome = ' + str(form.Income.data))
     return redirect('/index')
 
-@app.route('/analysis_income', methods=['GET'])
+
+@app.route('/factors', methods=['GET'])
+def choose_factors():
+    return render_template('factors.html')
+
+@app.route('/factors', methods=['POST'])
 def analysis_income():
-    #code of analysis
-    return render_template('income.html') #+ analysis results
+    if len(request.form) == 0:
+        return render_template('factors.html')
+    res = 'Income ~ '
+    for param in request.form.keys():
+        res += 'C(' + param + ')'
+    res = res.replace(')C', ')*C')
+    (info, p_value_norm, distribution, dw_stat, dw_decision, homoscedasticity, 
+     homoscedasticity_pv, multicorrelation_number, homoscedasticity_decision, 
+     multicorrelation_message, factors, boxplot_dirs, anova_factors) = analyzer_2.anova_analysis(res)
+    all_stat_important_f = analyzer_2.get_info_important_factors(factors)
+    
+    return render_template('income.html', info = info, p_value_norm =p_value_norm, distribution=distribution,
+                           dw_stat = dw_stat, dw_decision = dw_decision, homoscedasticity = homoscedasticity,
+                           homoscedasticity_pv = homoscedasticity_pv, homoscedasticity_decision = homoscedasticity_decision,
+                           multicorrelation_number = multicorrelation_number, multicorrelation_message = multicorrelation_message,
+                           factors = factors, boxplot_dirs = boxplot_dirs, anova_factors = anova_factors, all_stat_important_f = all_stat_important_f)
+

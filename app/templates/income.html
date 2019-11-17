@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Лучший веб-сервис</title>
+	</head>
+	<body>
+		<h3 style='color:blue'>{{ info }}</h3>
+		<h4>Below you can see some information based on all inputed factors</h4>
+		<li>{{ distribution }} distribution, p-value: {{ p_value_norm }}</li>
+		<li> We got DW-statistic {{ dw_stat }}, this means, that, {{ dw_decision }}.</li>
+		<li> Omnibus statistic: {{ homoscedasticity }}, p-value: {{ homoscedasticity_pv }}, that's why {{ homoscedasticity_decision }}</li>
+		<li> Multicorrelation number: {{ multicorrelation_number }}. {{ multicorrelation_message }}</li>
+		<h4> Here are all factors that make sense for income: </h4>
+		{% for i in range(factors.__len__()) %}
+			<ul>
+				<li> {{ factors[i] }}, p-value: {{ anova_factors[i] }}
+					<ul>
+						<li style='list-style: square outside'>DW-statistic: {{  all_stat_important_f[i]['dw_stat'] }}. Decision: {{ all_stat_important_f[i]['dw_decision'] }}</li>
+						<li style='list-style: square outside'>Omnibus statistic: {{  all_stat_important_f[i]['homoscedasticity'] }}, p-value: {{ all_stat_important_f[i]['homoscedasticity_pv'] }}=>{{ all_stat_important_f[i]['homoscedasticity_decision'] }}</li>
+						<li style='list-style: square outside'>Multicorrelation number: {{ all_stat_important_f[i]['multicorrelation_number'] }}. {{ all_stat_important_f[i]['multicorrelation_message'] }}</li>
+					</ul>
+				</li>
+			</ul>
+		{% endfor %}
+		<h3 style='color:blue'>Below you can see the boxplots of important factors</h3>
+		{% for dir in boxplot_dirs%}
+			<img src={{ dir }} width='1000' height='500'>
+		{% endfor %}
+	</body>
+</html>
+
