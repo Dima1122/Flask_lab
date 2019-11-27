@@ -1,9 +1,12 @@
 from app import app
 from flask import render_template, flash, redirect, g
 from flask import request, escape
-from analysis import analyzer, analyzer_2
+from analysis import analyzer, analyzer_2, wine_analyzer
 from app.forms import ObservationForm
 import sqlite3
+
+WINE_COLS = ['FixedAcidity','VolatileAcidity','CitricAcid','ResidualSugar','Chlorides','FreeSulfurDioxide','TotalSulfurDioxide','Density',
+             'PH','Sulphates','Alcohol']
 
 '''def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
@@ -81,3 +84,30 @@ def analysis_income():
                            multicorrelation_number = multicorrelation_number, multicorrelation_message = multicorrelation_message,
                            factors = factors, boxplot_dirs = boxplot_dirs, anova_factors = anova_factors, all_stat_important_f = all_stat_important_f)
 
+@app.route('/ellipsis', methods=['GET'])
+def choose_pair():
+    '''
+    выбираем пару для отрисовки
+    '''
+    return render_template('choose_pair.html', cols=WINE_COLS)
+
+@app.route('/ellipsis', methods=['POST'])
+def predictive_ellipsis():
+    if len(request.form) != 2: #отрабатываем случай, когда выбрано не 2 переменных
+        return render_template('choose_pair.html', cols=WINE_COLS)
+    '''
+    Здесь будут рассчитываться нужные данные
+    Данные лежат в бд в таблице WINE
+    '''
+    fields = []
+    for field in request.form.keys():
+        fields.append(field)
+    field1 = fields[0]
+    field2 = fields[1]
+    data = wine_analyzer.get_coordinates(field1, field2)
+    return render_template('ellipsis.html', coordinates=data)
+
+@app.route('/wine_pca', methods=['GET'])
+def wine_pca():
+    data = wine_analyzer.calculate_pca(cols=WINE_COLS)
+    return render_template('wine_pca.html', PCA=data)

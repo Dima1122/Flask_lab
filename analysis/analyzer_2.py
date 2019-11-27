@@ -46,7 +46,7 @@ def save_boxplot(data, factors):
             fig = plt.figure(figsize=(20, 10))
             plt.boxplot(data_list, labels = labels)
             plt.title(factor)
-            fig.savefig(my_path+'\\..\\app\\static\\'+factor+'.png')
+            fig.savefig(my_path + '\\..\\app\\static\\'+factor+'.png')
             plt.close(fig)
         else:    
             all_attributes = list(data.groupby(_factors).groups.keys())
@@ -60,7 +60,7 @@ def save_boxplot(data, factors):
             plt.boxplot(data_list, labels = all_attributes)
             plt.xticks(rotation=90)
             plt.title(factor)
-            fig.savefig(my_path+'\\..\\app\\static\\'+factor+'.png')
+            fig.savefig(my_path + '\\..\\app\\static\\'+factor+'.png')
             plt.close(fig)
 
 def check_normality(data):
@@ -113,7 +113,7 @@ def anova_analysis(res):
     results.summary()
     if distribution == 'Not Normal':
         return 'Sorry, data is terrible, we cannot perform anova analysis', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    anova_res = anova.anova_lm(results, typ=1, cache=True)
+    anova_res = anova.anova_lm(results, typ=2, cache=True)
     anova_factors = anova_res[anova_res['PR(>F)'] < 0.1]['PR(>F)']
     factors = {}
     for i in range(len(anova_factors.index)):
