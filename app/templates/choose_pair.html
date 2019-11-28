@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Лучший веб-сервис</title>
+</head>
+<body>
+    <h1>Выберите ПАРУ переменных</h1>
+    <form action="/ellipsis" method="post">
+        {% for i in cols %}
+            <input type="checkbox" name='{{ i }}'> {{ i }} <br><br>
+        {% endfor %}
+        <input type="submit">
+    </form>
+</body>
+</html>
