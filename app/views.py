@@ -84,6 +84,12 @@ def analysis_income():
                            multicorrelation_number = multicorrelation_number, multicorrelation_message = multicorrelation_message,
                            factors = factors, boxplot_dirs = boxplot_dirs, anova_factors = anova_factors, all_stat_important_f = all_stat_important_f)
 
+@app.route('/update', methods=['GET'])
+def update_data():
+    wine_analyzer.update()
+    flash('Данные обновлены!')
+    return render_template('index.html', cols=WINE_COLS)
+
 @app.route('/ellipsis', methods=['GET'])
 def choose_pair():
     '''
@@ -111,3 +117,5 @@ def predictive_ellipsis():
 def wine_pca():
     data = wine_analyzer.calculate_pca(cols=WINE_COLS)
     return render_template('wine_pca.html', PCA=data)
+
+
