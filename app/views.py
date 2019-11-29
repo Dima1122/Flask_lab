@@ -84,6 +84,12 @@ def analysis_income():
                            multicorrelation_number = multicorrelation_number, multicorrelation_message = multicorrelation_message,
                            factors = factors, boxplot_dirs = boxplot_dirs, anova_factors = anova_factors, all_stat_important_f = all_stat_important_f)
 
+@app.route('/update', methods=['GET'])
+def update_data():
+    wine_analyzer.update()
+    flash('Данные обновлены!')
+    return render_template('index.html', cols=WINE_COLS)
+
 @app.route('/ellipsis', methods=['GET'])
 def choose_pair():
     '''
@@ -93,7 +99,7 @@ def choose_pair():
 
 @app.route('/ellipsis', methods=['POST'])
 def predictive_ellipsis():
-    if len(request.form) != 2: #отрабатываем случай, когда выбрано не 2 переменных
+    if len(request.form) != 3: #отрабатываем случай, когда выбрано не 2 переменных
         return render_template('choose_pair.html', cols=WINE_COLS)
     '''
     Здесь будут рассчитываться нужные данные
@@ -104,10 +110,13 @@ def predictive_ellipsis():
         fields.append(field)
     field1 = fields[0]
     field2 = fields[1]
-    data = wine_analyzer.get_coordinates(field1, field2)
-    return render_template('ellipsis.html', coordinates=data)
+    scale = 1 - float(request.form.get(fields[2]))/100
+    loc = wine_analyzer.get_coordinates(field1, field2, scale)
+    return render_template('ellipsis.html', loc = loc)
 
 @app.route('/wine_pca', methods=['GET'])
 def wine_pca():
-    data = wine_analyzer.calculate_pca(cols=WINE_COLS)
+    data = wine_analyzer.calculate_pca()
     return render_template('wine_pca.html', PCA=data)
+
+

@@ -6,8 +6,30 @@
 </head>
 <body>
     <h1>Главные компоненты, объясняющие 95% дисперсии</h1>
-	{% for i in range(data.__len__()) %}
-		<h4>Component </h4>
-    <p>{{ PCA }}</p>
+	<table border=1>
+		<tr>
+			<th>Component</th> 
+			<th>Variance</th> 
+			<th>Variance ratio</th>
+			<th>Vector</th>
+		
+		</tr>	
+	{% for i in range(PCA[0].__len__()) %}
+		<tr>
+			<th>{{ PCA[0][i][0] }}</th> 
+			<th>{{ PCA[0][i][1] }}</th> 
+			<th>{{ PCA[0][i][2] }}</th>
+			<th>
+				<h4>{% for j in range(PCA[0][i][3].__len__() - 1)  %}
+					{{ PCA[0][i][3][j] }}X{{ j }} +
+				{% endfor %}
+				{{ PCA[0][i][3][PCA[0][i][3].__len__() - 1] }}X{{ PCA[0][i][3].__len__() - 1 }}
+				</h4>
+			</th>
+		
+		</tr>
+	{% endfor %}
+	</table>
+	<h2>Total variance ratio: {{ PCA[1] }}</h2>
 </body>
 </html>

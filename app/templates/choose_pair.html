@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Лучший веб-сервис</title>
+	<style> 
+		.input_num {
+		  width:10%;
+		}  
+</style>
 </head>
 <body>
     <h1>Выберите ПАРУ переменных</h1>
@@ -10,6 +15,9 @@
         {% for i in cols %}
             <input type="checkbox" name='{{ i }}'> {{ i }} <br><br>
         {% endfor %}
+		<h6>Введите масштаб в %</h6>
+		<input type="number" name = 'size' class = 'input_num' min=0 max=100 placeholder='введите масштаб' step=1 required>
+		<h4></h4>
         <input type="submit">
     </form>
 </body>
